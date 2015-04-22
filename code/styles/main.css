@@ -1,0 +1,46 @@
+.container-fluid {
+	background-color: #5cbdff;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.open>a {
+	  background-image: linear-gradient(to bottom,#53AAE6 0,#5cbdff 100%);
+}
+#gc_about_img {
+	background-image: url("http://carleton.ca/sasc/wp-content/uploads/students-for-Christina.jpg");
+	background-size: cover;
+	height: 900px;
+	color: #e6e6e6;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.lm_text {
+	height: 30%;
+	margin-top: 300px;
+	border-radius: 35px;
+	/*display: none; */
+	color: black;
+	text-shadow: none;
+	padding: 30px 15px;
+	display: none;
+}
+.lm_text a {
+	float: right;
+	margin-right: 15px;
+}
+#gc_about_img_text {
+	margin-left: 50px;
+}
+.filler {
+	height: 400px;
+	background-color: #eee;
+}
+#gc_hiw_img {
+	background-image: url("http://www.bvsd.org/preschools/SiteAssets/Pages/Preschool-Calendars/calendar.JPG");
+	background-size: cover;
+	color: #e6e6e6;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	height: 900px;
+	margin-top: 30px;
+}
+#gc_hiw_img_text {
+	margin-left: 50px;
+	color: #5cbdff;
+}
