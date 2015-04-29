@@ -58,8 +58,8 @@ Postulant tincidunt usu et, sit habeo vulputate intellegam at, eos graeci admodu
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Login</button>
+        <button type="button" id="login-close" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="login()">Login</button> <!--onclick is just a call to filler function for now-->
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -75,11 +75,33 @@ Postulant tincidunt usu et, sit habeo vulputate intellegam at, eos graeci admodu
         <h4 class="modal-title">Register</h4>
       </div>
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+        <div class="input-group">
+          <span class="input-group-addon" id="name-reg">Name</span>
+          <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2" autofocus>
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="user-reg">Username</span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="pass-reg">Password</span>
+          <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
+          <span class="input-group-addon" id="pass-confirm">Confirm Password</span>
+          <input type="password" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon" id="email-reg">E-mail</span>
+          <input type="text" class="form-control" placeholder="E-mail" aria-describedby="sizing-addon2">
+          <span class="input-group-addon" id="email-confirm">Confirm E-mail</span>
+          <input type="text" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Register</button>
+        <button type="button" id="reg-close" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="register()">Register</button> <!--register() is just a placeholder function for now-->
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
