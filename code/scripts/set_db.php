@@ -1,3 +1,3 @@
 <?php
-	$db = new PDO("mysql:dbname=GroupCalendarDB;host=localhost", "root", "password");
+	$db = new PDO("mysql:dbname=GroupCalendarDB;host=localhost", "groupcal", "password");
 ?>
