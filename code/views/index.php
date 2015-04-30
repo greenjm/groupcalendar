@@ -3,6 +3,7 @@
 	include "head.php";
 ?>
 <script src="../javascript/index.js"></script>
+<link rel="stylesheet" type="text/css" href="../styles/index.css">
 </head>
 <body>
 	<?php include "nav.html"; ?>
@@ -49,13 +50,15 @@ Postulant tincidunt usu et, sit habeo vulputate intellegam at, eos graeci admodu
       <div class="modal-body">
         <div class="input-group">
           <span class="input-group-addon" id="user-field">Username</span>
-          <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" autofocus>
+          <input name="username" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" autofocus>
         </div>
         <p></p>
         <div class="input-group">
           <span class="input-group-addon" id="pass-field">Password</span>
-          <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
+          <input name="password" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
         </div>
+        <br>
+        <p id="login-error">Username or password is incorrect</p>
       </div>
       <div class="modal-footer">
         <button type="button" id="login-close" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -77,32 +80,35 @@ Postulant tincidunt usu et, sit habeo vulputate intellegam at, eos graeci admodu
       <div class="modal-body">
         <div class="input-group">
           <span class="input-group-addon" id="name-reg">Name</span>
-          <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2" autofocus>
+          <input name="reg-name" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2" autofocus>
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon" id="user-reg">Username</span>
-          <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+          <input name="reg-user" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon" id="pass-reg">Password</span>
-          <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
+          <input name="reg-pass" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
           <span class="input-group-addon" id="pass-confirm">Confirm Password</span>
-          <input type="password" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
+          <input name="reg-confirm-pass" type="password" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
         </div>
         <br>
         <div class="input-group">
           <span class="input-group-addon" id="email-reg">E-mail</span>
-          <input type="text" class="form-control" placeholder="E-mail" aria-describedby="sizing-addon2">
+          <input name="reg-email" type="text" class="form-control" placeholder="E-mail" aria-describedby="sizing-addon2">
           <span class="input-group-addon" id="email-confirm">Confirm E-mail</span>
-          <input type="text" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
+          <input name="reg-confirm-email" type="text" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="reg-close" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" onclick="register()">Register</button> <!--register() is just a placeholder function for now-->
       </div>
+      <p id="pass-error">Passwords are not the same</p>
+      <p id="email-error">Emails are not the same</p>
+      <p id="user-error">That username is already taken</p>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
