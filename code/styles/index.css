@@ -1,4 +1,4 @@
-#login-error, #pass-error, #email-error, #user-error {
+#login-error, #pass-error, #email-error, #user-error, #empty-reg-error, #empty-login-error {
 	display: none;
 	color: red;
 }

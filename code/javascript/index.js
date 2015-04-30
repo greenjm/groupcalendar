@@ -28,6 +28,9 @@ var closeinfo = function(id) {
 	});
 	//$("#" + id).hide();
 }
+var checkEmpty = function(array) {
+	console.log(array);
+}
 
 var getLoginCredentials = function() {
 	var username = $("input[name=username]").val();
