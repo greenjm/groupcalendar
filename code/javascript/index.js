@@ -29,7 +29,14 @@ var closeinfo = function(id) {
 	//$("#" + id).hide();
 }
 var checkEmpty = function(array) {
-	console.log(array);
+	for (var item in array){
+		if(array[item].trim() == "") {
+			return false;
+		}
+
+		console.log(item, array[item]);
+	}
+	return true;
 }
 
 var getLoginCredentials = function() {
@@ -40,7 +47,12 @@ var getLoginCredentials = function() {
 
 var login = function() {
 	$("#login-error").hide();
+	$("#empty-login-error").hide();
 	var credentials = getLoginCredentials();
+	if (!checkEmpty(credentials)) {
+		$("#empty-login-error").show();
+		return;
+	}
 
 	var packet = {
 		"username": credentials["username"].trim(),
@@ -78,9 +90,14 @@ var getRegisterFields = function() {
 
 var register = function() {
 	$("#pass-error").hide();
-	$("email-error").hide();
-	$("user-error").hide();
+	$("#email-error").hide();
+	$("#user-error").hide();
+	$("#empty-reg-error").hide();
 	var fields = getRegisterFields();
+	if (!checkEmpty(fields)) {
+		$("#empty-reg-error").show();
+		return;
+	}
 
 	var packet = {
 		"name": fields["name"],
