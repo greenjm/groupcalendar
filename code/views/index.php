@@ -60,7 +60,7 @@ Postulant tincidunt usu et, sit habeo vulputate intellegam at, eos graeci admodu
         <br>
         <p id="login-error">Username or password is incorrect</p>
         <p id="empty-login-error">All fields are required</p>
-        <p id="spec-char-login">Special characters are not allowed</p>
+        <p id="spec-char-login">Special characters are not allowed for the username field</p>
       </div>
       <div class="modal-footer">
         <button type="button" id="login-close" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -107,7 +107,7 @@ Postulant tincidunt usu et, sit habeo vulputate intellegam at, eos graeci admodu
         <p id="email-error">Emails are not the same</p>
         <p id="user-error">That username is already taken</p>
         <p id="empty-reg-error">All fields are required</p>
-        <p id="spec-char-reg">Special characters are not allowed</p>
+        <p id="spec-char-reg">Special characters are not allowed in some fields</p>
       </div>
       <div class="modal-footer">
         <button type="button" id="reg-close" class="btn btn-default" data-dismiss="modal">Close</button>

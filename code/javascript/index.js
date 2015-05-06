@@ -48,9 +48,14 @@ var getLoginCredentials = function() {
 var login = function() {
 	$("#login-error").hide();
 	$("#empty-login-error").hide();
+	$("#spec-char-login").hide();
 	var credentials = getLoginCredentials();
 	if (!checkEmpty(credentials)) {
 		$("#empty-login-error").show();
+		return;
+	}
+	if (!/^[a-zA-Z0-9- ]*$/.test(credentials["username"])) {
+		$("#spec-char-login").show();
 		return;
 	}
 
@@ -93,6 +98,7 @@ var register = function() {
 	$("#email-error").hide();
 	$("#user-error").hide();
 	$("#empty-reg-error").hide();
+	$("#spec-char-reg").hide();
 	var fields = getRegisterFields();
 	if (!checkEmpty(fields)) {
 		$("#empty-reg-error").show();
