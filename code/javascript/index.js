@@ -4,6 +4,7 @@ var MENU_RIGHT = "";
 window.onload = function() {
 	if (Cookie.exists("username")){
 		console.log("success");
+		console.log(Cookie.get("username"));
 	} else {
 		beforeLoggedInBar();
 	}	
@@ -69,10 +70,12 @@ var login = function() {
 		datatype: "html",
 		data: packet,
 		success: function(data) {
+				Cookie.set("username", packet.username);
+				Cookie.set("login-success", true);
 				document.getElementById('nav-options').innerHTML = MENU_LEFT;
 				document.getElementById('login-sect').innerHTML = MENU_RIGHT;
 				$("#login-close").click();
-				//window.location.href="user_cal.php";
+				window.location.href = "user_cal.php";
 		},
 		error: function(data) {
 			$("#login-error").show();
@@ -131,11 +134,13 @@ var register = function() {
 			if(data === "taken"){
 				console.log("got 1");
 				$("#user-error").show();
-				return;
 			} else {
 				console.log("not 1");
 				$("#reg-close").click();
 			}
+		},
+		error: function(data) {
+			console.log(data);
 		}
 	});
 	/*Filler function*/	
@@ -143,6 +148,8 @@ var register = function() {
 
 var clearCookies = function() {
 	/*Filler function*/
+	var date = new Date();
+	Cookie.remove("username");
 	console.log("success");
 	beforeLoggedInBar();
 }
