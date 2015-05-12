@@ -9,6 +9,7 @@
     </script>
 
 	<script src="http://www.webstepbook.com/Cookie.js" type="text/javascript"></script>
+	<script src="../javascript/main.js"></script>
 	<!--css stylesheets-->
 	<link rel="stylesheet" type="text/css" href="../libraries/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../libraries/bootstrap-theme.min.css">

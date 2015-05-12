@@ -67,20 +67,20 @@
         	<span class="input-group-addon" id='datetimepicker2'>
          	   <span class="glyphicon glyphicon-calendar"></span> End
             </span>
-            <input name="date" type='text' class="form-control datepicker" placeholder="End Date" />
+            <input name="e-date" type='text' class="form-control datepicker" placeholder="End Date" />
         </div>
 
 		<div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker1'>
          	   <span class="glyphicon glyphicon-time"></span> Start Time
             </span>
-            <input name="s-date" type='text' class="form-control timepicker" placeholder="Start Time" />
+            <input name="s-time" type='text' class="form-control timepicker" placeholder="Start Time" />
         </div>
         <div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker1'>
          	   <span class="glyphicon glyphicon-time"></span> End Time
             </span>
-            <input name="s-date" type='text' class="form-control timepicker" placeholder="End Time" />
+            <input name="e-time" type='text' class="form-control timepicker" placeholder="End Time" />
         </div>
 
         <div class="input-group">

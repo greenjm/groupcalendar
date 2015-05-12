@@ -1,6 +1,7 @@
-var D = new Date();
-var picker;
-var timePicker;
+var SDPicker;
+var EDPicker;
+var STPicker;
+var ETPicker;
 
 $(document).ready(function() {
 	$("#calendar").fullCalendar({
@@ -13,23 +14,41 @@ $(document).ready(function() {
 		editable: true
 	});
 
-	var $input = $( '.datepicker' ).pickadate({
+	var $SDInput = $("input[name=s-date]").pickadate({
             formatSubmit: 'yyyy-mm-dd',
             // min: [2015, 7, 14],
             //container: '#container',
             // editable: true,
-            closeOnSelect: false,
+            closeOnSelect: true,
             closeOnClear: false,
         });
 
-    var picker = $input.pickadate('picker');
+    SDPicker = $SDInput.pickadate('picker');
+    var $EDInput = $("input[name=e-date]").pickadate({
+            formatSubmit: 'yyyy-mm-dd',
+            // min: [2015, 7, 14],
+            //container: '#container',
+            // editable: true,
+            closeOnSelect: true,
+            closeOnClear: false,
+        });
 
-    var $timeInput = $( '.timepicker' ).pickatime({
-    		format: 'h:i a',
+    EDPicker = $EDInput.pickadate('picker');
+
+    var $STime = $("input[name=s-time]").pickatime({
+    		format: 'HH:i',
     		formatSubmit: 'HH:i',
-    		interval: 30
+    		interval: 30,
+    		closeOnSelect: true
         })
-    var timePicker = $timeInput.pickatime('timePicker');
+    STPicker = $STime.pickatime('timePicker');
+    var $ETime = $("input[name=e-time]").pickatime({
+    		format: 'HH:i',
+    		formatSubmit: 'HH:i',
+    		interval: 30,
+    		closeOnSelect: true
+        })
+    ETPicker = $ETime.pickatime('timePicker');
 })
 window.onload = function() {
 	console.log(Cookie.get("username"), " I'm here");
@@ -39,8 +58,11 @@ window.onload = function() {
 var getCreateFields = function() {
 	var eName = $("input[name=e-name]").val();
 	var eSubj = $("input[name=e-subj]").val();
-	var startDate = $("input[name=s-date]").val();
-	var endDate = $("input[name=e-date]").val();
+	var startDate = SDPicker.get('select', 'yyyy-mm-dd');
+	var endDate = EDPicker.get('select', 'yyyy-mm-dd');
+	var startTime = $("input[name=s-time]").val();
+	var endTime = $("input[name=e-time]").val();
+	console.log(startDate, endDate, startTime, endTime);
 	var repeatType = $("input[name=repeat]:checked").val();
 	var repeatAmount = $("input[name=e-amt]").val();
 	var username = Cookie.get("username");
@@ -49,6 +71,8 @@ var getCreateFields = function() {
 		eSubj: eSubj,
 		startDate: startDate,
 		endDate: endDate,
+		startTime: startTime,
+		endTime: endTime,
 		repeatType: repeatType,
 		repeatAmount: repeatAmount,
 		username: username
@@ -77,8 +101,8 @@ var CreateEvent = function() {
 		"eSubj": fields['eSubj'],
 		"startDate": fields['startDate'],
 		"endDate": fields['endDate'],
-		"startTime": '11:00',
-		"endTime": '14:00',
+		"startTime": fields['startTime'],
+		"endTime": fields['endTime'],
 		"repeatType": fields['repeatType'],
 		"repeatAmount": fields['repeatAmount'],
 		"username": fields['username']
