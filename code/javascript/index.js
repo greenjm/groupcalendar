@@ -64,13 +64,14 @@ var login = function() {
 		"username": credentials["username"].trim(),
 		"password": credentials["password"].trim()
 	};
+	
 	$.ajax({
 		method: "POST",
 		url: 'http://groupcalendar.csse.rose-hulman.edu/login.php',
 		datatype: "html",
 		data: packet,
 		success: function(data) {
-				Cookie.set("username", packet.username);
+				Cookie.set("username", packet.username, 1);
 				Cookie.set("login-success", true);
 				document.getElementById('nav-options').innerHTML = MENU_LEFT;
 				document.getElementById('login-sect').innerHTML = MENU_RIGHT;

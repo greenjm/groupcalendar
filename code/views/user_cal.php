@@ -2,37 +2,43 @@
 <?php
 	include "head.php";
 ?>
-	<script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-    </script>
-    <script type="text/javascript">
-      $('#datetimepicker1').datetimepicker({
-        format: 'yyyy-DD-mm hh:mm:ss',
-        language: 'pt-BR'
-      });
-    </script>
-    <script type="text/javascript">
-      $('#datetimepicker2').datetimepicker({
-        format: 'yyyy-DD-mm hh:mm:ss',
-        language: 'pt-BR'
-      });
-    </script>
+	
+	<link href='../libraries/fullcalendar-2.3.1/fullcalendar.print.css' rel='stylesheet' media='print' />
+	<link href='../libraries/fullcalendar-2.3.1/fullcalendar.css' rel='stylesheet' />
+	<link href='../styles/user_cal.css' rel='stylesheet' />	
+	<script src='../libraries/fullcalendar-2.3.1/lib/moment.min.js'></script>
+	<script src='../libraries/fullcalendar-2.3.1/fullcalendar.min.js'></script>
+
+	<script src="../libraries/pickadate.js-3.5.6/lib/picker.js"></script>
+    <script src="../libraries/pickadate.js-3.5.6/lib/picker.date.js"></script>
+    <script src="../libraries/pickadate.js-3.5.6/lib/picker.time.js"></script>
+    <script src="../libraries/pickadate.js-3.5.6/lib/legacy.js"></script>
+    <link rel="stylesheet" href="../libraries/pickadate.js-3.5.6/lib/themes/default.css">
+	<link rel="stylesheet" href="../libraries/pickadate.js-3.5.6/lib/themes/default.date.css">
 
     <script src="../javascript/user_cal.js"></script>
 </head>
 <body>
 	<?php include "nav.html"; ?>
-	<h1>Calendar</h1>
-
-	<ul>
-		<li><a id="create-form" data-toggle="modal" data-target="#create-modal">Create</a></li>
-		<li><a id="delete-form" data-toggle="modal" data-target="#delete-modal">Delete</a></li>
-		<!--<li><a id="select-form" data-toggle="modal" data-target="#select-modal">Select</a></li>-->
-	</ul>
-	<iframe src="https://www.google.com/calendar/embed?" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+<div class='row'>
+	<div class='col-md-3' id='left-sect'>
+		<h1>Calendar</h1>
+		<ul>
+			<li><a id="create-form" data-toggle="modal" data-target="#create-modal">Create</a></li>
+			<li><a id="delete-form" data-toggle="modal" data-target="#delete-modal">Delete</a></li>
+		</ul>
+	</div>
+	<div class='col-md-6' id='mid-sect'>
+		<div id="calendar"></div>
+	</div>
+	<div class='col-md-3' id='right-sect'>
+		<div class='list-group' id="groupList">
+			<li class='list-group-item'>Testing 1</li>
+			<li class='list-group-item'>Testing 2</li>
+		</div>
+	</div>
+</div>
+	<!--<iframe src="https://www.google.com/calendar/embed?" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>-->
 
 	<div class="modal fade" id="create-modal">
   <div class="modal-dialog">
@@ -53,16 +59,30 @@
         </div>
         <div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker1'>
-         	   <span class="glyphicon glyphicon-calendar"></span>
+         	   <span class="glyphicon glyphicon-calendar"></span> Start
             </span>
-            <input name="s-date" type='text' class="form-control" />
+            <input name="s-date" type='text' class="form-control datepicker" placeholder="Start Date" />
         </div>
         <div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker2'>
-         	   <span class="glyphicon glyphicon-calendar"></span>
+         	   <span class="glyphicon glyphicon-calendar"></span> End
             </span>
-            <input name="e-date" type='text' class="form-control" />
+            <input name="date" type='text' class="form-control datepicker" placeholder="End Date" />
         </div>
+
+		<div class='input-group date'>
+        	<span class="input-group-addon" id='datetimepicker1'>
+         	   <span class="glyphicon glyphicon-time"></span> Start Time
+            </span>
+            <input name="s-date" type='text' class="form-control timepicker" placeholder="Start Time" />
+        </div>
+        <div class='input-group date'>
+        	<span class="input-group-addon" id='datetimepicker1'>
+         	   <span class="glyphicon glyphicon-time"></span> End Time
+            </span>
+            <input name="s-date" type='text' class="form-control timepicker" placeholder="End Time" />
+        </div>
+
         <div class="input-group">
           <span class="input-group-addon"><input name="repeat" type="radio" value="0" aria-label="sizing-addon2" checked>None</span>
           <span class="input-group-addon"><input name="repeat" type="radio" value="1" aria-label="sizing-addon2">Daily</span>

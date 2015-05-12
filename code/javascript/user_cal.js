@@ -1,5 +1,39 @@
+var D = new Date();
+var picker;
+var timePicker;
+
+$(document).ready(function() {
+	$("#calendar").fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		defaultDate: new Date(),
+		editable: true
+	});
+
+	var $input = $( '.datepicker' ).pickadate({
+            formatSubmit: 'yyyy-mm-dd',
+            // min: [2015, 7, 14],
+            //container: '#container',
+            // editable: true,
+            closeOnSelect: false,
+            closeOnClear: false,
+        });
+
+    var picker = $input.pickadate('picker');
+
+    var $timeInput = $( '.timepicker' ).pickatime({
+    		format: 'h:i a',
+    		formatSubmit: 'HH:i',
+    		interval: 30
+        })
+    var timePicker = $timeInput.pickatime('timePicker');
+})
 window.onload = function() {
 	console.log(Cookie.get("username"), " I'm here");
+	getGroups();
 }
 
 var getCreateFields = function() {
@@ -94,4 +128,8 @@ var deleteEvent = function() {
 			console.log("unknown error occurred");
 		}
 	});
+}
+
+var getGroups = function() {
+	console.log("made the getGroups function")
 }
