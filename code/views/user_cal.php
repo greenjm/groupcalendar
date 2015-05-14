@@ -32,10 +32,10 @@
 		<div id="calendar"></div>
 	</div>
 	<div class='col-md-3' id='right-sect'>
-		<div class='list-group' id="groupList">
-			<li class='list-group-item'>Testing 1</li>
-			<li class='list-group-item'>Testing 2</li>
-		</div>
+		<h1>My Groups</h1>
+		<br />
+		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#group-modal">Create Group</button>
+		<div class='list-group' id="groupList">		</div>
 	</div>
 </div>
 	<!--<iframe src="https://www.google.com/calendar/embed?" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>-->
@@ -57,37 +57,41 @@
           <span class="input-group-addon" id="e-subj">Subject</span>
           <input name="e-subj" type="text" class="form-control" placeholder="Subject" aria-describedby="sizing-addon2">
         </div>
+        <br />
         <div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker1'>
          	   <span class="glyphicon glyphicon-calendar"></span> Start
             </span>
             <input name="s-date" type='text' class="form-control datepicker" placeholder="Start Date" />
         </div>
+        <br />
         <div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker2'>
          	   <span class="glyphicon glyphicon-calendar"></span> End
             </span>
             <input name="e-date" type='text' class="form-control datepicker" placeholder="End Date" />
         </div>
-
+		<br />
 		<div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker1'>
          	   <span class="glyphicon glyphicon-time"></span> Start Time
             </span>
             <input name="s-time" type='text' class="form-control timepicker" placeholder="Start Time" />
         </div>
+        <br />
         <div class='input-group date'>
         	<span class="input-group-addon" id='datetimepicker1'>
          	   <span class="glyphicon glyphicon-time"></span> End Time
             </span>
             <input name="e-time" type='text' class="form-control timepicker" placeholder="End Time" />
         </div>
-
+        <br />
         <div class="input-group">
           <span class="input-group-addon"><input name="repeat" type="radio" value="0" aria-label="sizing-addon2" checked>None</span>
           <span class="input-group-addon"><input name="repeat" type="radio" value="1" aria-label="sizing-addon2">Daily</span>
           <span class="input-group-addon"><input name="repeat" type="radio" value="2" aria-label="sizing-addon2">Weekly</span>
         </div>
+        <br />
 		<div class="input-group">
           <span class="input-group-addon" id="e-amt">Amount</span>
           <input name="e-amt" type="text" class="form-control" placeholder="Amount (1-10)" aria-describedby="sizing-addon2">
@@ -125,29 +129,31 @@
 </div><!-- /.modal -->
 
 
-<!--<div class="modal fade" id="select-modal">
+<div class="modal fade" id="group-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Select</h4>
+        <h4 class="modal-title">Create Group</h4>
       </div>
       <div class="modal-body">
         <div class="input-group">
-          <span class="input-group-addon" id="user-field">Username</span>
-          <input name="username" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2" autofocus>
+          <span class="input-group-addon" id="gName-field">Name</span>
+          <input name="gName" type="text" class="form-control" placeholder="EventID" aria-describedby="sizing-addon2" autofocus>
         </div>
-        <p></p>
+      </div>
+      <div class="modal-body">
         <div class="input-group">
-          <span class="input-group-addon" id="pass-field">Month</span>
-          <input name="password" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
-        </div> 
+          <span class="input-group-addon" id="gPurp-field">Purpose</span>
+          <input name="gPurp" type="text" class="form-control" placeholder="EventID" aria-describedby="sizing-addon2" autofocus>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="login-close" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+        <button type="button" id="delete-close" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="createGroup()">Create</button> <!--onclick is just a call to filler function for now-->
       </div>
-    </div> /.modal-content
-  </div>/.modal-dialog
-</div> /.modal -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 </body>

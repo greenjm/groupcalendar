@@ -4,12 +4,31 @@ var STPicker;
 var ETPicker;
 
 $(document).ready(function() {
+
+	createCalendar();
+
 	$("#calendar").fullCalendar({
 		header: {
 			left: 'prev,next today',
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
 		},
+		events: {
+			url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
+			type: 'GET',
+			data: {
+				"username": Cookie.get("username")
+			},
+			datatype: 'json',
+			color: 'blue',
+			textColor: 'black',
+			success: function(data){
+				console.log("getting data...", data);
+			},
+			error: function(data){
+				console.log("error...", data);
+			}
+		},		
 		defaultDate: new Date(),
 		editable: true
 	});
@@ -50,9 +69,26 @@ $(document).ready(function() {
         })
     ETPicker = $ETime.pickatime('timePicker');
 })
+
 window.onload = function() {
 	console.log(Cookie.get("username"), " I'm here");
 	getGroups();
+}
+
+var createCalendar = function() {
+	var packet = {
+		"username": Cookie.get("username")
+	};
+	$.ajax({
+		url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
+		type: 'GET',
+		datatype: 'json',
+		data: packet,
+		success: function(data1) {
+			var data = JSON.parse(data1);
+			console.log(data);
+		}
+	});	
 }
 
 var getCreateFields = function() {
@@ -155,5 +191,52 @@ var deleteEvent = function() {
 }
 
 var getGroups = function() {
-	console.log("made the getGroups function")
+	var packet = {
+		"username": Cookie.get("username")
+	};
+	var groupList = $("#groupList");
+	groupList.empty();
+	$.ajax({
+		method: "GET",
+		url: 'http://groupcalendar.csse.rose-hulman.edu/get_groups.php',
+		datatype: 'json',
+		data: packet,
+		success: function(data){
+			var data1 = JSON.parse(data);
+			console.log(data1);
+			for(var id in data1){
+				var item = $("<li class='list-group-item' onclick='groupClicked(this)'>\n \n</li>");
+				item.attr("id", data1[id]['id']);
+				var name = data1[id]['name'];
+				console.log("name", name);
+				item.append(name);
+				groupList.append(item);
+			}
+		}
+	});
+}
+
+var groupClicked = function(group){
+	console.log(group.id);
+	console.log(group.innerText);
+	Cookie.set("group", group.innerText);
+	Cookie.set("groupID", group.id);
+	window.location.href="group_cal.php";
+}
+
+var createGroup = function() {
+	var packet = {
+		"username": Cookie.get("username"),
+		"name": $("input[name='gName']").val(),
+		"purp": $("input[name='gPurp']").val()
+	}
+	$.ajax({
+		method: "POST",
+		url: 'http://groupcalendar.csse.rose-hulman.edu/create_group.php',
+		data: packet,
+		success: function(data){
+			console.log("Created the group", data);
+			getGroups();
+		}
+	});
 }
