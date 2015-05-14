@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 	createCalendar();
 
-	$("#calendar").fullCalendar({
+	/*$("#calendar").fullCalendar({
 		header: {
 			left: 'prev,next today',
 			center: 'title',
@@ -31,7 +31,7 @@ $(document).ready(function() {
 		},		
 		defaultDate: new Date(),
 		editable: true
-	});
+	});*/
 
 	var $SDInput = $("input[name=s-date]").pickadate({
             formatSubmit: 'yyyy-mm-dd',
@@ -79,6 +79,7 @@ var createCalendar = function() {
 	var packet = {
 		"username": Cookie.get("username")
 	};
+	var eventList = [];
 	$.ajax({
 		url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
 		type: 'GET',
@@ -87,7 +88,27 @@ var createCalendar = function() {
 		success: function(data1) {
 			var data = JSON.parse(data1);
 			console.log(data);
+			for (var id in data){
+				var e = {
+					"id": data[id]['id'],
+					"title": data[id]['title'],
+					"start": data[id]['start'],
+					"end": data[id]['end']
+				};
+				eventList.push(e);
+			}
+			console.log("events.json", eventList);
 		}
+	});
+	$("#calendar").fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		events: eventList,		
+		defaultDate: new Date(),
+		editable: true
 	});	
 }
 
@@ -172,8 +193,7 @@ var deleteEvent = function() {
 		return;
 	}
 	var packet = {
-		"eventID": fields['eventID'],
-		"username": fields['username']
+		"eventID": fields['eventID']
 	};
 
 	$.ajax({

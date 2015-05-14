@@ -96,3 +96,19 @@ var removeMember = function() {
 		}
 	});
 }
+
+var deleteGroup = function() {
+	var packet = {
+		"groupID": Cookie.get("groupID")
+	};
+	$.ajax({
+		url: 'http://groupcalendar.csse.rose-hulman.edu/delete_group.php',
+		type: 'POST',
+		data: packet,
+		success: function() {
+			Cookie.remove("group");
+			Cookie.remove("groupID");
+			window.location.href = "user_cal.php";
+		}
+	});
+}

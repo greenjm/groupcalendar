@@ -22,6 +22,9 @@
 			eventLimit: true, // allow "more" link when too many events
 			events: {
 				url: 'php/get-events.php',
+				success: function(data){
+					console.log(data);
+				},
 				error: function() {
 					$('#script-warning').show();
 				}

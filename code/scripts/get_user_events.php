@@ -7,7 +7,7 @@
 
 	$query = $db->prepare('CALL retrieveEvents(:username)');
 	$query->bindValue(':username', $username, PDO::PARAM_STR);
-	$query->execute();
+	//$query->execute();
 
 	$results = array();
 
