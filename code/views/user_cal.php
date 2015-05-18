@@ -122,7 +122,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="delete-close" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="deleteEvent()">Delete</button> <!--onclick is just a call to filler function for now-->
+        <button id="delete-submit" type="button" class="btn btn-primary">Delete</button> <!--onclick is just a call to filler function for now-->
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

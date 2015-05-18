@@ -7,32 +7,6 @@ $(document).ready(function() {
 
 	createCalendar();
 
-	/*$("#calendar").fullCalendar({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		},
-		events: {
-			url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
-			type: 'GET',
-			data: {
-				"username": Cookie.get("username")
-			},
-			datatype: 'json',
-			color: 'blue',
-			textColor: 'black',
-			success: function(data){
-				console.log("getting data...", data);
-			},
-			error: function(data){
-				console.log("error...", data);
-			}
-		},		
-		defaultDate: new Date(),
-		editable: true
-	});*/
-
 	var $SDInput = $("input[name=s-date]").pickadate({
             formatSubmit: 'yyyy-mm-dd',
             // min: [2015, 7, 14],
@@ -76,40 +50,37 @@ window.onload = function() {
 }
 
 var createCalendar = function() {
-	var packet = {
-		"username": Cookie.get("username")
-	};
-	var eventList = [];
-	$.ajax({
-		url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
-		type: 'GET',
-		datatype: 'json',
-		data: packet,
-		success: function(data1) {
-			var data = JSON.parse(data1);
-			console.log(data);
-			for (var id in data){
-				var e = {
-					"id": data[id]['id'],
-					"title": data[id]['title'],
-					"start": data[id]['start'],
-					"end": data[id]['end']
-				};
-				eventList.push(e);
-			}
-			console.log("events.json", eventList);
-		}
-	});
+	
 	$("#calendar").fullCalendar({
 		header: {
 			left: 'prev,next today',
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
 		},
-		events: eventList,		
+		events: {
+			url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
+			type: "GET",
+			data: {
+				"username": Cookie.get("username")
+			},
+			datatype: "json"
+		},	
 		defaultDate: new Date(),
-		editable: true
+		editable: false,
+		eventClick: function(calEvent, jsEvent, view) {
+			console.log("calEvent: ", calEvent.id);
+			console.log("jsEvent: ", jsEvent);
+			console.log("view: ", view);
+			editAndDeleteEvent(calEvent.id);
+		}
 	});	
+}
+
+var editAndDeleteEvent = function(eID) {
+	$("#delete-form").trigger('click');
+	$("#delete-submit").click(function() {
+		deleteEvent(eID);
+	});
 }
 
 var getCreateFields = function() {
@@ -141,8 +112,6 @@ var checkEmpty = function(array) {
 		if(array[item].trim() == "") {
 			return false;
 		}
-
-		console.log(item, array[item]);
 	}
 	return true;
 }
@@ -172,6 +141,7 @@ var CreateEvent = function() {
 		data: packet,
 		success: function(data){
 			console.log("event successfully created");
+			location.reload();
 		},
 		error: function(data){
 			console.log("error creating event");
@@ -179,21 +149,10 @@ var CreateEvent = function() {
 	});
 }
 
-var getDeleteFields = function() {
-	var eventID = $("input[name=e-id]").val();
-	var username = Cookie.get("username");
+var deleteEvent = function(eID) {
 
-	return {eventID: eventID, username: username};
-}
-
-var deleteEvent = function() {
-	var fields = getDeleteFields();
-
-	if(!checkEmpty(fields)) {
-		return;
-	}
 	var packet = {
-		"eventID": fields['eventID']
+		"eventID": eID
 	};
 
 	$.ajax({
@@ -203,6 +162,8 @@ var deleteEvent = function() {
 		data: packet,
 		success: function(data){
 			console.log("successful delete");
+			$("#delete-close").trigger('click');
+			location.reload();
 		},
 		error: function(data) {
 			console.log("unknown error occurred");
@@ -223,12 +184,10 @@ var getGroups = function() {
 		data: packet,
 		success: function(data){
 			var data1 = JSON.parse(data);
-			console.log(data1);
 			for(var id in data1){
 				var item = $("<li class='list-group-item' onclick='groupClicked(this)'>\n \n</li>");
 				item.attr("id", data1[id]['id']);
 				var name = data1[id]['name'];
-				console.log("name", name);
 				item.append(name);
 				groupList.append(item);
 			}
