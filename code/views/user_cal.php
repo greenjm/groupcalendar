@@ -25,7 +25,6 @@
 		<h1>Calendar</h1>
 		<ul>
 			<li><a id="create-form" data-toggle="modal" data-target="#create-modal">Create</a></li>
-			<li><a id="delete-form" data-toggle="modal" data-target="#delete-modal">Delete</a></li>
 		</ul>
 	</div>
 	<div class='col-md-6' id='mid-sect'>

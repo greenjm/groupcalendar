@@ -1,7 +1,9 @@
 
 $(document).ready(function() {
 
-	$("#calendar").fullCalendar({
+	createCalendar();
+
+	/*$("#calendar").fullCalendar({
 		header: {
 			left: 'prev,next today',
 			center: 'title',
@@ -14,8 +16,8 @@ $(document).ready(function() {
 				"username": Cookie.get("username")
 			},
 			datatype: 'json',
-			color: 'blue',
-			textColor: 'black',
+			color: 'red',
+			textColor: '#ffffff',
 			success: function(data){
 				console.log("getting data...", data);
 			},
@@ -25,7 +27,7 @@ $(document).ready(function() {
 		},		
 		defaultDate: new Date(),
 		editable: true
-	});
+	});*/
 
 	var $SDInput = $("input[name=s-date]").pickadate({
             formatSubmit: 'yyyy-mm-dd',
@@ -67,6 +69,56 @@ window.onload = function() {
 	$("#groupname").html(Cookie.get("group"));
 }
 
+var createCalendar = function() {
+
+	var allMembers;
+	var memberList = $("#memberList");
+	memberList.empty();
+
+	$.ajax({
+		url: 'http://groupcalendar.csse.rose-hulman.edu/get_members.php',
+		type: 'GET',
+		data: {
+			"groupID": Cookie.get("groupID")
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			allMembers = data1;
+			console.log(allMembers);
+			for(var user in data1){
+				var item = $("<li class='list-group-item'>\n \n</li>");
+				var username = data1[user];
+				item.append(username);
+				memberList.append(item);
+			}
+		}
+	});
+	
+	$("#calendar").fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		events: {
+			url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
+			type: "GET",
+			data: {
+				"username": Cookie.get("username")
+			},
+			datatype: "json"
+		},	
+		defaultDate: new Date(),
+		editable: false,
+		eventClick: function(calEvent, jsEvent, view) {
+			console.log("calEvent: ", calEvent.id);
+			console.log("jsEvent: ", jsEvent);
+			console.log("view: ", view);
+			editAndDeleteEvent(calEvent.id);
+		}
+	});	
+}
+
 var addMember = function() {
 	var packet = {
 		"username": $("input[name='username']").val(),
@@ -77,7 +129,7 @@ var addMember = function() {
 		type: 'POST',
 		data: packet,
 		success: function() {
-			console.log("added member");
+			location.reload();
 		}
 	});
 }
@@ -92,7 +144,7 @@ var removeMember = function() {
 		type: 'POST',
 		data: packet,
 		success: function() {
-			console.log("removed member");
+			location.reload();
 		}
 	});
 }
