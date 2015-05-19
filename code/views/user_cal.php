@@ -95,7 +95,8 @@
           <span class="input-group-addon" id="e-amt">Amount</span>
           <input name="e-amt" type="text" class="form-control" placeholder="Amount (1-10)" aria-describedby="sizing-addon2">
         </div>
-
+        <br />
+        <p id="create-error"></p>
       </div>
       <div class="modal-footer">
         <button type="button" id="e-create-close" class="btn btn-default" data-dismiss="modal">Close</button>

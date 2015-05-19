@@ -35,7 +35,33 @@
 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#member-modal">Add Member</button>
 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#del-member-modal">Remove Member</button>
 		<div class='list-group' id="memberList"></div>
+		<br />
+		<h1>Messages</h1>
+		<br />
+		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#message-modal">New Message</button>
+		<div class='list-group' id='messageList'></div>
 	</div>
+
+<div class="modal fade" id="message-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">New Message</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon" id="text-field">Message</span>
+          <input name="message" type="text" class="form-control" placeholder="Message" aria-describedby="sizing-addon2" autofocus>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="message-close" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="postMessage()">Post</button> <!--onclick is just a call to filler function for now-->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div class="modal fade" id="member-modal">
   <div class="modal-dialog">

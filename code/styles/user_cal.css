@@ -5,3 +5,7 @@
 #right-sect {
 	padding-right: 5px;
 }
+#create-error {
+	display: none;
+	color: red;
+}

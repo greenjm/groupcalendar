@@ -68,9 +68,6 @@ var createCalendar = function() {
 		defaultDate: new Date(),
 		editable: false,
 		eventClick: function(calEvent, jsEvent, view) {
-			console.log("calEvent: ", calEvent.id);
-			console.log("jsEvent: ", jsEvent);
-			console.log("view: ", view);
 			editAndDeleteEvent(calEvent.id);
 		}
 	});	
@@ -108,18 +105,65 @@ var getCreateFields = function() {
 }
 
 var checkEmpty = function(array) {
+	console.log(array);
 	for (var item in array){
-		if(array[item].trim() == "") {
+		console.log(item, array[item]);
+		if(array[item] == "") {
 			return false;
 		}
 	}
 	return true;
 }
 
+var validateEventFields = function(array) {
+	var sd = array['startDate'].split("-");
+	var ed = array['endDate'].split("-");
+	var st = array['startTime'].split(":");
+	var et = array['endTime'].split(":");
+	var startDate = new Date(sd[0], sd[1], sd[2], st[0], st[1], "00");
+	var endDate = new Date(ed[0], ed[1], ed[2], et[0], et[1], "00");
+	if(endDate < startDate) {
+		console.log("date");
+		return false;
+	}
+	var amount = array['repeatAmount'];
+	if (isNaN(parseInt(amount, 10)) || amount < 0 || amount > 10){
+		return false;
+	}
+	if(array['repeatType'] != '0') {
+		var y1 = startDate.getYear();
+		var m1 = startDate.getMonth();
+		var d1 = startDate.getDate();
+		var y2 = endDate.getYear();
+		var m2 = endDate.getMonth();
+		var d2 = endDate.getDate();
+		if(d1 != d2 || m1 != m2 || y1 != y2) {
+			console.log("repeat");
+			return false;
+		}
+	}
+	if (!/^[a-zA-Z0-9- ]*$/.test(array['eName']) || !/^[a-zA-Z0-9- ]*$/.test(array['eSubj'])) {
+		console.log("special chars");
+		return false;
+	}
+	return true;
+}
+
 var CreateEvent = function() {
+	$("#create-error").hide();
 	var fields = getCreateFields();
+	if(fields['repeatType'] == 0){
+		fields['repeatAmount'] = "0";
+	}
 
 	if(!checkEmpty(fields)) {
+		$("#create-error").text("No fields can be empty");
+		$("#create-error").show();
+		return;
+	}
+	if(!validateEventFields(fields)) {
+		$("#create-error").text("one or more fields has an invalid value");
+		$("#create-error").show();
 		return;
 	}
 	var packet = {
