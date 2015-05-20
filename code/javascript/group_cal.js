@@ -1,3 +1,4 @@
+var memberList;
 
 $(document).ready(function() {
 
@@ -53,7 +54,7 @@ window.onload = function() {
 var createCalendar = function() {
 
 	var allMembers;
-	var memberList = $("#memberList");
+	memberList = $("#memberList");
 	memberList.empty();
 
 	$.ajax({
@@ -108,9 +109,34 @@ var viewEvent = function(e) {
 	console.log(start, end);
 }
 
-var addMember = function() {
+var searchUsers = function() {
+	$("#search-results").empty();
+	if($("input[name='username']").val().trim() == "") {
+		return;	
+	}
+	var resultList = $("#search-results");
 	var packet = {
-		"username": $("input[name='username']").val(),
+		"search": $("input[name='username']").val()
+	};
+	$.ajax({
+		type: "GET",
+		url: 'http://groupcalendar.csse.rose-hulman.edu/search_users.php',
+		data: packet,
+		success: function(datum) {
+			var data = JSON.parse(datum);
+			for(var name in data){
+				var item = $("<li class='list-group-item' onclick='addMember(this)'>\n \n</li>");
+				var text = data[name];
+				item.append(text);
+				resultList.append(item);
+			}
+		}
+	});
+}
+
+var addMember = function(user) {
+	var packet = {
+		"username": user.innerHTML.trim(),
 		"groupID": Cookie.get("groupID")
 	};
 	$.ajax({
@@ -128,6 +154,9 @@ var removeMember = function() {
 		"username": $("input[name='remove']").val(),
 		"groupID": Cookie.get("groupID")
 	};
+	if(packet["username"] == Cookie.get("username")){
+		return;
+	}
 	$.ajax({
 		url: 'http://groupcalendar.csse.rose-hulman.edu/remove_member.php',
 		type: 'POST',
@@ -222,4 +251,117 @@ var getMessages = function() {
 			}
 		}
 	});
+}
+
+var getCreateFields = function() {
+	var eName = $("input[name=e-name]").val();
+	var eSubj = $("input[name=e-subj]").val();
+	var startDate = SDPicker.get('select', 'yyyy-mm-dd');
+	var endDate = EDPicker.get('select', 'yyyy-mm-dd');
+	var startTime = $("input[name=s-time]").val();
+	var endTime = $("input[name=e-time]").val();
+	console.log(startDate, endDate, startTime, endTime);
+	var repeatType = $("input[name=repeat]:checked").val();
+	var repeatAmount = $("input[name=e-amt]").val();
+	var groupID = Cookie.get("groupID");
+	return {
+		eName: eName,
+		eSubj: eSubj,
+		startDate: startDate,
+		endDate: endDate,
+		startTime: startTime,
+		endTime: endTime,
+		repeatType: repeatType,
+		repeatAmount: repeatAmount,
+		groupID: groupID
+	};
+}
+
+var checkEmpty = function(array) {
+	console.log(array);
+	for (var item in array){
+		console.log(item, array[item]);
+		if(array[item] == "") {
+			return false;
+		}
+	}
+	return true;
+}
+
+var validateEventFields = function(array) {
+	var sd = array['startDate'].split("-");
+	var ed = array['endDate'].split("-");
+	var st = array['startTime'].split(":");
+	var et = array['endTime'].split(":");
+	var startDate = new Date(sd[0], sd[1], sd[2], st[0], st[1], "00");
+	var endDate = new Date(ed[0], ed[1], ed[2], et[0], et[1], "00");
+	if(endDate < startDate) {
+		console.log("date");
+		return false;
+	}
+	var amount = array['repeatAmount'];
+	if (isNaN(parseInt(amount, 10)) || amount < 0 || amount > 10){
+		return false;
+	}
+	if(array['repeatType'] != '0') {
+		var y1 = startDate.getYear();
+		var m1 = startDate.getMonth();
+		var d1 = startDate.getDate();
+		var y2 = endDate.getYear();
+		var m2 = endDate.getMonth();
+		var d2 = endDate.getDate();
+		if(d1 != d2 || m1 != m2 || y1 != y2) {
+			console.log("repeat");
+			return false;
+		}
+	}
+	if (!/^[a-zA-Z0-9- ]*$/.test(array['eName']) || !/^[a-zA-Z0-9- ]*$/.test(array['eSubj'])) {
+		console.log("special chars");
+		return false;
+	}
+	return true;
+}
+
+var createGroupEvent = function() {
+	$("#create-error").hide();
+	var fields = getCreateFields();
+	if(fields['repeatType'] == 0){
+		fields['repeatAmount'] = "0";
+	}
+
+	if(!checkEmpty(fields)) {
+		$("#create-error").text("No fields can be empty");
+		$("#create-error").show();
+		return;
+	}
+	if(!validateEventFields(fields)) {
+		$("#create-error").text("one or more fields has an invalid value");
+		$("#create-error").show();
+		return;
+	}
+	var packet = {
+		"eName": fields['eName'],
+		"eSubj": fields['eSubj'],
+		"startDate": fields['startDate'],
+		"endDate": fields['endDate'],
+		"startTime": fields['startTime'],
+		"endTime": fields['endTime'],
+		"repeatType": fields['repeatType'],
+		"repeatAmount": fields['repeatAmount'],
+		"groupID": fields['groupID']
+	};
+
+	$.ajax({
+		method: "POST",
+		url: 'http://groupcalendar.csse.rose-hulman.edu/create_group_event.php',
+		datatype: "html",
+		data: packet,
+		success: function(data){
+			console.log("event successfully created");
+			location.reload();
+		},
+		error: function(data){
+			console.log("error creating event");
+		}
+	});	
 }
