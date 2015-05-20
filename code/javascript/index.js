@@ -91,7 +91,7 @@ var getRegisterFields = function() {
 	var name = $("input[name=reg-name]").val();
 	var username = $("input[name=reg-user]").val();
 	var pass = $("input[name=reg-pass]").val();
-	var passCon = $("input[name=reg-confirm-pass").val();
+	var passCon = $("input[name=reg-confirm-pass]").val();
 	var email = $("input[name=reg-email]").val();
 	var emailCon = $("input[name=reg-confirm-email]").val();
 	return {name: name, username: username, password: pass, passCon: passCon, email: email, emailCon: emailCon};
@@ -106,6 +106,10 @@ var register = function() {
 	var fields = getRegisterFields();
 	if (!checkEmpty(fields)) {
 		$("#empty-reg-error").show();
+		return;
+	}
+	if (!/^[a-zA-Z0-9- ]*$/.test(fields["username"])) {
+		$("#spec-char-reg").show();
 		return;
 	}
 
@@ -144,5 +148,4 @@ var register = function() {
 			console.log(data);
 		}
 	});
-	/*Filler function*/	
 }

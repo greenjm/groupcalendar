@@ -99,9 +99,9 @@ Postulant tincidunt usu et, sit habeo vulputate intellegam at, eos graeci admodu
         <br>
         <div class="input-group">
           <span class="input-group-addon" id="email-reg">E-mail</span>
-          <input name="reg-email" type="text" class="form-control" placeholder="E-mail" aria-describedby="sizing-addon2">
+          <input name="reg-email" type="email" class="form-control" placeholder="E-mail" aria-describedby="sizing-addon2">
           <span class="input-group-addon" id="email-confirm">Confirm E-mail</span>
-          <input name="reg-confirm-email" type="text" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
+          <input name="reg-confirm-email" type="email" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon2">
         </div>
         <p id="pass-error">Passwords are not the same</p>
         <p id="email-error">Emails are not the same</p>
