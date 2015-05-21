@@ -3,16 +3,15 @@ var MENU_RIGHT = "";
 
 window.onload = function() {
 	if (Cookie.exists("username")){
-		console.log("success");
-		console.log(Cookie.get("username"));
+		Cookie.remove("toView");
 	} else {
+		Cookie.remove("toView");
 		beforeLoggedInBar();
 	}
-	Cookie.remove("toView");	
+		
 }
 
 var beforeLoggedInBar = function() {
-	console.log("beforeLoggedInBar");
 	MENU_LEFT = $("#nav-options").html();
 	MENU_RIGHT = $("#login-sect").html();
 	document.getElementById('nav-options').innerHTML = "";
@@ -20,7 +19,6 @@ var beforeLoggedInBar = function() {
 }
 
 var showinfo = function(id) {
-	console.log("here", id);
 	$("#" + id).show();
 	$("#" + id).animate({height: "30%"}, 750);
 }
@@ -36,8 +34,6 @@ var checkEmpty = function(array) {
 		if(array[item].trim() == "") {
 			return false;
 		}
-
-		console.log(item, array[item]);
 	}
 	return true;
 }
@@ -137,12 +133,9 @@ var register = function() {
 		url: 'http://groupcalendar.csse.rose-hulman.edu/register.php',
 		data: packet,
 		success: function(data) {
-			console.log(data);
 			if(data === "taken"){
-				console.log("got 1");
 				$("#user-error").show();
 			} else {
-				console.log("not 1");
 				$("#reg-close").click();
 			}
 		},

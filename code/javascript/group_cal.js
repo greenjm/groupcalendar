@@ -51,10 +51,8 @@ window.onload = function() {
 	}
 	$("#groupname").html(Cookie.get("group"));
 	getMessages();
-	console.log(Cookie.get("username"), Cookie.get("toView"));
 	//setInterval('refresher()', 60000);
 	Cookie.remove("toView");
-	console.log(Cookie.get("username"), Cookie.get("toView"));
 }
 
 var createCalendar = function() {
@@ -100,19 +98,14 @@ var createCalendar = function() {
 		defaultDate: new Date(),
 		editable: false,
 		eventClick: function(calEvent, jsEvent, view) {
-			console.log("calEvent: ", calEvent.id);
-			console.log("jsEvent: ", jsEvent);
-			console.log("view: ", view);
 			viewEvent(calEvent);
 		}
 	});	
 }
 
 var viewEvent = function(e) {
-	console.log(e.start._i);
 	var start = e.start._i.split("T");
 	var end = e.end._i.split("T");
-	console.log(start, end);
 }
 
 var searchUsers = function() {
@@ -216,7 +209,6 @@ var postMessage = function() {
 		url: 'http://groupcalendar.csse.rose-hulman.edu/post_group_message.php',
 		data: packet,
 		success: function(){
-			console.log("successfully posted message");
 			location.reload();
 		},
 		error: function() {
@@ -226,8 +218,7 @@ var postMessage = function() {
 }
 
 var checkEmpty = function(array) {
-	for (var item in array){
-		console.log(item, array[item]);
+	for (var item in array)
 		if(array[item] == "") {
 			return false;
 		}
@@ -266,7 +257,6 @@ var getCreateFields = function() {
 	var endDate = EDPicker.get('select', 'yyyy-mm-dd');
 	var startTime = $("input[name=s-time]").val();
 	var endTime = $("input[name=e-time]").val();
-	console.log(startDate, endDate, startTime, endTime);
 	var repeatType = $("input[name=repeat]:checked").val();
 	var repeatAmount = $("input[name=e-amt]").val();
 	var groupID = Cookie.get("groupID");
@@ -284,9 +274,7 @@ var getCreateFields = function() {
 }
 
 var checkEmpty = function(array) {
-	console.log(array);
 	for (var item in array){
-		console.log(item, array[item]);
 		if(array[item] == "") {
 			return false;
 		}
@@ -302,7 +290,6 @@ var validateEventFields = function(array) {
 	var startDate = new Date(sd[0], sd[1], sd[2], st[0], st[1], "00");
 	var endDate = new Date(ed[0], ed[1], ed[2], et[0], et[1], "00");
 	if(endDate < startDate) {
-		console.log("date");
 		return false;
 	}
 	var amount = array['repeatAmount'];
@@ -317,12 +304,10 @@ var validateEventFields = function(array) {
 		var m2 = endDate.getMonth();
 		var d2 = endDate.getDate();
 		if(d1 != d2 || m1 != m2 || y1 != y2) {
-			console.log("repeat");
 			return false;
 		}
 	}
 	if (!/^[a-zA-Z0-9- ]*$/.test(array['eName']) || !/^[a-zA-Z0-9- ]*$/.test(array['eSubj'])) {
-		console.log("special chars");
 		return false;
 	}
 	return true;
@@ -363,7 +348,6 @@ var createGroupEvent = function() {
 		datatype: "html",
 		data: packet,
 		success: function(data){
-			console.log("event successfully created");
 			location.reload();
 		},
 		error: function(data){
