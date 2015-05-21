@@ -45,11 +45,42 @@ $(document).ready(function() {
 })
 
 window.onload = function() {
+	if(Cookie.get("username") == null){
+		clearCookies();
+	}
 	console.log(Cookie.get("username"), " I'm here");
 	getGroups();
+	if (Cookie.get("toView")){
+		$("#create-form").hide();
+		$("#group-button").hide();
+	}
 }
 
 var createCalendar = function() {
+
+	var user;
+	if(Cookie.get("toView")){
+		user = Cookie.get("toView");
+		$("#calendar").fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		events: {
+			url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
+			type: "GET",
+			data: {
+				"username": user
+			},
+			datatype: "json"
+		},	
+		defaultDate: new Date(),
+		editable: false
+	});	
+	} else {
+		user = Cookie.get("username");
+	
 	
 	$("#calendar").fullCalendar({
 		header: {
@@ -61,7 +92,7 @@ var createCalendar = function() {
 			url: 'http://groupcalendar.csse.rose-hulman.edu/get_user_events.php',
 			type: "GET",
 			data: {
-				"username": Cookie.get("username")
+				"username": user
 			},
 			datatype: "json"
 		},	
@@ -71,6 +102,7 @@ var createCalendar = function() {
 			editAndDeleteEvent(calEvent.id);
 		}
 	});	
+	}
 }
 
 var editAndDeleteEvent = function(eID) {
@@ -216,8 +248,16 @@ var deleteEvent = function(eID) {
 }
 
 var getGroups = function() {
+	var username;
+	if (Cookie.get("toView")){
+		console.log("cookies");
+		username = Cookie.get("toView");
+	} else {
+		console.log("no cookies");
+		username = Cookie.get("username");
+	}
 	var packet = {
-		"username": Cookie.get("username")
+		"username": username
 	};
 	var groupList = $("#groupList");
 	groupList.empty();
@@ -240,8 +280,9 @@ var getGroups = function() {
 }
 
 var groupClicked = function(group){
-	console.log(group.id);
-	console.log(group.innerText);
+	if(Cookie.get("toView")){
+		return;
+	}
 	Cookie.set("group", group.innerText);
 	Cookie.set("groupID", group.id);
 	window.location.href="group_cal.php";

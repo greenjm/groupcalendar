@@ -34,7 +34,7 @@
 	<div class='col-md-3' id='right-sect'>
 		<h1>My Groups</h1>
 		<br />
-		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#group-modal">Create Group</button>
+		<button id="group-button" type="button" class="btn btn-default" data-toggle="modal" data-target="#group-modal">Create Group</button>
 		<div class='list-group' id="groupList">		</div>
 	</div>
 </div>

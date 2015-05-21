@@ -46,9 +46,15 @@ var refresher = function() {
 }
 
 window.onload = function() {
+	if(Cookie.get("groupID") == null){
+		clearCookies();
+	}
 	$("#groupname").html(Cookie.get("group"));
 	getMessages();
-	setInterval('refresher()', 60000);
+	console.log(Cookie.get("username"), Cookie.get("toView"));
+	//setInterval('refresher()', 60000);
+	Cookie.remove("toView");
+	console.log(Cookie.get("username"), Cookie.get("toView"));
 }
 
 var createCalendar = function() {

@@ -7,10 +7,12 @@ window.onload = function() {
 		console.log(Cookie.get("username"));
 	} else {
 		beforeLoggedInBar();
-	}	
+	}
+	Cookie.remove("toView");	
 }
 
 var beforeLoggedInBar = function() {
+	console.log("beforeLoggedInBar");
 	MENU_LEFT = $("#nav-options").html();
 	MENU_RIGHT = $("#login-sect").html();
 	document.getElementById('nav-options').innerHTML = "";
