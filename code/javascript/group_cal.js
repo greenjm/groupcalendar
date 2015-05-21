@@ -195,7 +195,7 @@ var getMessageFields = function() {
 
 var postMessage = function() {
 	var fields = getMessageFields();
-	if(!checkEmpty(fields)) {
+	if(checkEmpty(fields) == false) {
 		alert("There was an error");
 		return;
 	}
@@ -218,7 +218,7 @@ var postMessage = function() {
 }
 
 var checkEmpty = function(array) {
-	for (var item in array)
+	for (var item in array) {
 		if(array[item] == "") {
 			return false;
 		}
@@ -273,14 +273,14 @@ var getCreateFields = function() {
 	};
 }
 
-var checkEmpty = function(array) {
+/*var checkEmpty = function(array) {
 	for (var item in array){
 		if(array[item] == "") {
 			return false;
 		}
 	}
 	return true;
-}
+}*/
 
 var validateEventFields = function(array) {
 	var sd = array['startDate'].split("-");
@@ -320,7 +320,7 @@ var createGroupEvent = function() {
 		fields['repeatAmount'] = "0";
 	}
 
-	if(!checkEmpty(fields)) {
+	if(checkEmpty(fields) == false) {
 		$("#create-error").text("No fields can be empty");
 		$("#create-error").show();
 		return;
